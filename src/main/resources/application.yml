@@ -5,14 +5,15 @@ spring:
   application:
     name: location-service
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/location_db?useSSL=true&requireSSL=false&verifyServerCertificate=false&serverTimezone=UTC}
+    # url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/location_db?useSSL=true&requireSSL=false&verifyServerCertificate=false&serverTimezone=UTC}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/location_db?serverTimezone=UTC&useSSL=false}
     username: ${SPRING_DATASOURCE_USERNAME:location-service_user}
     password: ${SPRING_DATASOURCE_PASSWORD:Password@}
     driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      connection-timeout: 60000
-      idle-timeout: 600000
-      max-lifetime: 1800000
+    # hikari:
+    #   connection-timeout: 60000
+    #   idle-timeout: 600000
+    #   max-lifetime: 1800000
   jpa:
     hibernate:
       ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
@@ -21,7 +22,7 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.MySQL8Dialect
-    show-sql: false
+    # show-sql: false
   sql:
     init:
       mode: never
@@ -31,11 +32,11 @@ management:
     web:
       exposure:
         include: health,info
-  endpoint:
-    health:
-      show-details: when-authorized
+#   endpoint:
+#     health:
+#       show-details: when-authorized
 
-logging:
-  level:
-    com.zaxxer.hikari: DEBUG
-    org.springframework.boot.autoconfigure.jdbc: DEBUG
+# logging:
+#   level:
+#     com.zaxxer.hikari: DEBUG
+#     org.springframework.boot.autoconfigure.jdbc: DEBUG
