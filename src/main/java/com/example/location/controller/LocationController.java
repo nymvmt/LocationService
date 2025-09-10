@@ -35,6 +35,12 @@ public class LocationController {
         }
     }
     
+    @PostMapping
+    public ResponseEntity<LocationResponse> createLocation(@RequestBody Location location) {
+        Location savedLocation = locationRepository.save(location);
+        return ResponseEntity.ok(convertToDto(savedLocation));
+    }
+    
     private LocationResponse convertToDto(Location location) {
         return new LocationResponse(
                 location.getLocationId(),
