@@ -5,15 +5,19 @@ spring:
   application:
     name: location-service
   datasource:
-    # url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/location_db?useSSL=true&requireSSL=false&verifyServerCertificate=false&serverTimezone=UTC}
     url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/location_db?serverTimezone=UTC&useSSL=false}
     username: ${SPRING_DATASOURCE_USERNAME:location-service_user}
     password: ${SPRING_DATASOURCE_PASSWORD:Password@}
     driver-class-name: com.mysql.cj.jdbc.Driver
-    # hikari:
-    #   connection-timeout: 60000
-    #   idle-timeout: 600000
-    #   max-lifetime: 1800000
+    hikari:
+      connection-timeout: 60000
+      idle-timeout: 300000
+      max-lifetime: 1200000
+      maximum-pool-size: 10
+      minimum-idle: 5
+      leak-detection-threshold: 60000
+      validation-timeout: 3000
+      connection-test-query: SELECT 1
   jpa:
     hibernate:
       ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
@@ -36,7 +40,8 @@ management:
 #     health:
 #       show-details: when-authorized
 
-# logging:
-#   level:
-#     com.zaxxer.hikari: DEBUG
-#     org.springframework.boot.autoconfigure.jdbc: DEBUG
+logging:
+  level:
+    com.zaxxer.hikari: DEBUG
+    org.springframework.boot.autoconfigure.jdbc: DEBUG
+    com.example.location: INFO
