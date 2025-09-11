@@ -61,6 +61,20 @@ public class LocationController {
         }
     }
     
+    @DeleteMapping("/{location_id}")
+    public ResponseEntity<Void> deleteLocation(@PathVariable("location_id") String locationId) {
+        try {
+            if (!locationRepository.existsById(locationId)) {
+                return ResponseEntity.notFound().build();
+            }
+            
+            locationRepository.deleteById(locationId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
     private LocationResponse convertToDto(Location location) {
         return new LocationResponse(
                 location.getLocationId(),
