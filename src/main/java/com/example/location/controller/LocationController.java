@@ -39,6 +39,7 @@ public class LocationController {
     }
     
     @PostMapping
+<<<<<<< HEAD
     public ResponseEntity<LocationResponse> createLocation(@Valid @RequestBody LocationRequest request) {
         try {
             // 중복 체크
@@ -73,6 +74,11 @@ public class LocationController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+=======
+    public ResponseEntity<LocationResponse> createLocation(@RequestBody Location location) {
+        Location savedLocation = locationRepository.save(location);
+        return ResponseEntity.ok(convertToDto(savedLocation));
+>>>>>>> fc58a4c0473186aba3d5894d5e769da9c9843445
     }
     
     private LocationResponse convertToDto(Location location) {
